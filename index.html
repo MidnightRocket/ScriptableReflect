@@ -1,10 +1,50 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>untitled</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Scriptable Reflector</title>
 </head>
-<a href="scriptable:///run/Untitled%20Script%204" > click here </a>
+
 <body>
+	<a href="" id="link">
+		<h1 id="text">No callback URI provided</h1>
+	</a>
 </body>
+<script>
+	let linkElement = document.getElementById("link");
+	if (location.hash.startsWith("#")) {
+		processURIFragment(location.hash);
+	}
+
+	function processURIFragment(fragment) {
+		let params = fragment.substring(1); // Take everything after '#'
+		let urlParams = new URLSearchParams(params);
+
+		for (let i of urlParams) {
+			console.log(i);
+		}
+		if (urlParams.has("uri")) setLink(urlParams.get("uri"));
+		else if (urlParams.has("url")) setLink(urlParams.get("url"));
+
+		if (urlParams.has("text")) setText(urlParams.get("text"));
+		else setText("Click here");
+	}
+
+	function setLink(link) {
+		linkElement.setAttribute("href", link);
+		linkElement.addEventListener("click", () => {
+			window.location = link;
+			window.location.reload();
+		});
+	}
+
+	function setText(text) {
+		let textElement = document.getElementById("text");
+		textElement.innerHTML = text;
+	}
+</script>
+
 </html>
