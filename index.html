@@ -26,11 +26,18 @@
 		for (let i of urlParams) {
 			console.log(i);
 		}
-		if (urlParams.has("uri")) setLink(urlParams.get("uri"));
-		else if (urlParams.has("url")) setLink(urlParams.get("url"));
 
+		let uri = parseURIFromURLParams(urlParams);
 		if (urlParams.has("text")) setText(urlParams.get("text"));
-		else setText("Click here");
+		else setText("Click here: " + uri);
+	}
+
+	function parseURIFromURLParams(urlParams) {
+		let uri;
+		if (urlParams.has("uri")) uri = urlParams.get("uri");
+		else if (urlParams.has("url")) uri = urlParams.get("url");
+		setLink(uri);
+		return uri;
 	}
 
 	function setLink(link) {
