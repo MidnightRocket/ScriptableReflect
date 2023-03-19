@@ -9,7 +9,8 @@
 </head>
 
 <body>
-	<a href="" id="link">
+	<a href="" id="link" target="_blank" rel="noopener noreferrer">
+		<!-- https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/ -->
 		<h1 id="text">No callback URI provided</h1>
 	</a>
 </body>
@@ -43,8 +44,13 @@
 	function setLink(link) {
 		linkElement.setAttribute("href", link);
 		linkElement.addEventListener("click", () => {
-			window.location = link;
-			window.location.reload();
+			// window.location = link;
+			// window.location.reload();
+			// event.preventDefault();
+			// window.open(link);
+			setTimeout(window.close, 10);
+		}, {
+			passive: true
 		});
 	}
 
